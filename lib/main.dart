@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:market_app/shared/styles/style.dart';
 
-import 'moudules/auth/login_screen/login_screen.dart';
-import 'moudules/navbar/ui/main_home_screen.dart';
+import 'modules/navbar/ui/main_home_screen.dart';
+
 
 void main() {
   runApp(const Market());
