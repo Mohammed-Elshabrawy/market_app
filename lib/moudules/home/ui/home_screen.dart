@@ -15,6 +15,9 @@ class HomeScreen extends StatelessWidget {
             label: 'Search in Market App',
             searchFunction: () {},
           ),
+          SizedBox(height: 20,),
+          Image.asset("assets/images/buy.jpg"),
+
         ],
       ),
     );
