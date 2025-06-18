@@ -44,9 +44,11 @@ class SignupScreen extends StatelessWidget {
                         'SignUp',
                         style: TextStyle(
                           fontSize: 24,
-                          fontWeight: FontWeight.bold,)),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       SizedBox(height: 16),
-                      defaultFormFiled(
+                      DefaultFormFiled(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
@@ -68,7 +70,7 @@ class SignupScreen extends StatelessWidget {
                         prefix: Icons.person,
                       ),
                       SizedBox(height: 16),
-                      defaultFormFiled(
+                      DefaultFormFiled(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
@@ -90,9 +92,10 @@ class SignupScreen extends StatelessWidget {
                         },
                         label: 'Email',
                         prefix: Icons.email,
+                        obSecureText: false,
                       ),
                       SizedBox(height: 16),
-                      defaultFormFiled(
+                      DefaultFormFiled(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
@@ -121,7 +124,7 @@ class SignupScreen extends StatelessWidget {
 
                       SizedBox(
                         width: double.infinity,
-                        child: defaultButton(text: 'Signup', onPressed: () {}),
+                        child: DefaultButton(text: 'Signup', onPressed: () {}),
                       ),
                       SizedBox(height: 10),
                       Stack(
@@ -146,7 +149,7 @@ class SignupScreen extends StatelessWidget {
                       SizedBox(height: 10),
                       SizedBox(
                         width: double.infinity,
-                        child: defaultButton(
+                        child: DefaultButton(
                           text: "Signup with Google",
                           onPressed: () {},
                         ),

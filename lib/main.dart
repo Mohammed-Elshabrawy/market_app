@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:market_app/shared/styles/style.dart';
 
 import 'moudules/auth/login_screen/login_screen.dart';
+import 'moudules/navbar/ui/main_home_screen.dart';
 
 void main() {
   runApp(const Market());
@@ -21,7 +22,7 @@ class Market extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.kScaffoldColor,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const LoginScreen(),
+      home: const MainHomeScreen(),
     );
   }
 }

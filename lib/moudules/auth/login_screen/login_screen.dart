@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 16),
-                      defaultFormFiled(
+                      DefaultFormFiled(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
@@ -70,10 +70,10 @@ class LoginScreen extends StatelessWidget {
                           return null;
                         },
                         label: 'Email',
-                        prefix: Icons.email,
+                        prefix: Icons.email, obSecureText: false,
                       ),
                       SizedBox(height: 16),
-                      defaultFormFiled(
+                      DefaultFormFiled(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
@@ -120,7 +120,7 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(height: 16),
                       SizedBox(
                         width: double.infinity,
-                        child: defaultButton(text: 'Login', onPressed: () {}),
+                        child: DefaultButton(text: 'Login', onPressed: () {}),
                       ),
                       SizedBox(height: 10),
                       Stack(
@@ -145,7 +145,7 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(height: 10),
                       SizedBox(
                         width: double.infinity,
-                        child: defaultButton(
+                        child: DefaultButton(
                           text: "Login with Google",
                           onPressed: () {
                             navigateTo(context, MainHomeScreen());

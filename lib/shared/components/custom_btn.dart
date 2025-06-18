@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../styles/style.dart';
 
+class DefaultButton extends StatelessWidget {
+  const DefaultButton({super.key, this.onPressed, required this.text});
 
+  final Function()? onPressed;
 
-Widget defaultButton({required String text, required Function() onPressed}) =>
-    OutlinedButton(
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
       onPressed: onPressed,
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.all(AppColors.kPrimaryColor),
@@ -19,4 +25,5 @@ Widget defaultButton({required String text, required Function() onPressed}) =>
         ),
       ),
     );
-
+  }
+}
