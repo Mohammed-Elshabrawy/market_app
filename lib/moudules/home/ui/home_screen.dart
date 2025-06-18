@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../shared/components/custom_search_filed.dart';
+import 'Widets/categorise_list_view.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -15,9 +16,19 @@ class HomeScreen extends StatelessWidget {
             label: 'Search in Market App',
             searchFunction: () {},
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 20),
           Image.asset("assets/images/buy.jpg"),
-
+          SizedBox(height: 20),
+          Text(
+            "Popular Categories",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              height: 2,
+            ),
+          ),
+          SizedBox(height: 20),
+          CategoriesList(),
         ],
       ),
     );
