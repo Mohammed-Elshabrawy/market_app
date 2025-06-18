@@ -3,13 +3,13 @@ import '../../../shared/components/custom_btn.dart';
 import '../../../shared/components/custom_text_filed.dart';
 import '../../../shared/functions/navigateTo.dart';
 import '../../../shared/styles/style.dart';
-import '../forget_password_Screen/forgot_password_screen.dart';
-import '../singnup_screen/signup_screen.dart';
+import '../login_screen/login_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
   static TextEditingController emailController = TextEditingController();
   static TextEditingController passwordController = TextEditingController();
+  static TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +41,31 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        'Login',
+                        'SignUp',
                         style: TextStyle(
                           fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.bold,)),
+                      SizedBox(height: 16),
+                      defaultFormFiled(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: BorderSide(
+                            color: AppColors.kBorderSideColor,
+                            width: 2,
+                          ),
                         ),
+                        controller: nameController,
+                        type: TextInputType.name,
+                        validate: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'please confirm your name';
+                          }
+
+                          return null;
+                        },
+                        obSecureText: true,
+                        label: 'Name',
+                        prefix: Icons.supervised_user_circle,
                       ),
                       SizedBox(height: 16),
                       defaultFormFiled(
@@ -98,28 +118,10 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              navigateTo(context, ForgotPasswordScreen());
-                            },
-                            child: Text(
-                              'Forget Password?',
-                              style: TextStyle(
-                                color: AppColors.kPrimaryColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 16),
+
                       SizedBox(
                         width: double.infinity,
-                        child: defaultButton(text: 'Login', onPressed: () {}),
+                        child: defaultButton(text: 'Signup', onPressed: () {}),
                       ),
                       SizedBox(height: 10),
                       Stack(
@@ -145,7 +147,7 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: defaultButton(
-                          text: "Login with Google",
+                          text: "Signup with Google",
                           onPressed: () {},
                         ),
                       ),
@@ -154,15 +156,15 @@ class LoginScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Don't have an account?",
+                            "already have an account?",
                             style: TextStyle(fontSize: 16),
                           ),
                           TextButton(
                             onPressed: () {
-                              navigateTo(context, SignupScreen());
+                              navigateTo(context, LoginScreen());
                             },
                             child: Text(
-                              "Sign Up",
+                              "Login",
                               style: TextStyle(
                                 fontSize: 16,
                                 color: AppColors.kPrimaryColor,
