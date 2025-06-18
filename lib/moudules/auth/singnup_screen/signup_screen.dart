@@ -65,7 +65,7 @@ class SignupScreen extends StatelessWidget {
                         },
                         obSecureText: true,
                         label: 'Name',
-                        prefix: Icons.supervised_user_circle,
+                        prefix: Icons.person,
                       ),
                       SizedBox(height: 16),
                       defaultFormFiled(

@@ -3,6 +3,7 @@ import '../../../shared/components/custom_btn.dart';
 import '../../../shared/components/custom_text_filed.dart';
 import '../../../shared/functions/navigateTo.dart';
 import '../../../shared/styles/style.dart';
+import '../../navbar/logic/main_home_screen.dart';
 import '../forget_password_Screen/forgot_password_screen.dart';
 import '../singnup_screen/signup_screen.dart';
 
@@ -146,7 +147,9 @@ class LoginScreen extends StatelessWidget {
                         width: double.infinity,
                         child: defaultButton(
                           text: "Login with Google",
-                          onPressed: () {},
+                          onPressed: () {
+                            navigateTo(context, MainHomeScreen());
+                          },
                         ),
                       ),
                       SizedBox(height: 10),
