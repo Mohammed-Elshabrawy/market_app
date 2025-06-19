@@ -9,6 +9,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: AppColors.kWhiteColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Column(
         children: [
