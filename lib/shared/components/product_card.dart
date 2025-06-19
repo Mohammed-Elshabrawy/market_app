@@ -103,7 +103,7 @@ class ProductCard extends StatelessWidget {
                             ),
                           ],
                         ),
-                        DefaultButton(text: 'Buy Now'),
+                        CustomBtn(text: 'Buy Now'),
                       ],
                     ),
                   ],

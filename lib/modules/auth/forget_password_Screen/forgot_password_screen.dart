@@ -33,7 +33,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    DefaultFormFiled(
+                    CustomTextFormFiled(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                         borderSide: BorderSide(
@@ -59,7 +59,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                     SizedBox(height: 16),
                     SizedBox(
                       width: double.infinity,
-                      child: DefaultButton(text: 'Send', onPressed: () {}),
+                      child: CustomBtn(text: 'Send', onPressed: () {}),
                     ),
                     SizedBox(height: 10),
                   ],

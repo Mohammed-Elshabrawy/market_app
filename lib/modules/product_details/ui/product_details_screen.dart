@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:market_app/modules/product_details/ui/widgets/comments_list.dart';
 import 'package:market_app/shared/styles/style.dart';
 
 import '../../../shared/components/cache_image.dart';
+import '../../../shared/components/custom_text_filed.dart';
 import '../../../shared/functions/build_custom_app_bar.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({super.key});
 
+  static TextEditingController commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +58,42 @@ class ProductDetailsScreen extends StatelessWidget {
                     print(rating);
                   },
                 ),
+                SizedBox(height: 20),
+                CustomTextFormFiled(
+                  suffix: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.send, color: AppColors.kPrimaryColor),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(
+                      color: AppColors.kBorderSideColor,
+                      width: 2,
+                    ),
+                  ),
+                  controller: commentController,
+                  validate: (String? value) {
+                    if (value!.isEmpty) {
+                      return 'please enter your comment';
+                    }
+                    return null;
+                  },
+                  label: 'Type Your Feedback',
+                ),
+                SizedBox(height: 15),
+                Row(
+                  children: [
+                    Text(
+                      "Comments",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 15),
+                CommentsList(),
               ],
             ),
           ),

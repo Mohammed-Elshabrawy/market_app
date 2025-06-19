@@ -1,42 +1,41 @@
 import 'package:flutter/material.dart';
 
-class DefaultFormFiled extends StatelessWidget {
-   DefaultFormFiled({
+class CustomTextFormFiled extends StatelessWidget {
+  CustomTextFormFiled({
     super.key,
     this.onTab,
     this.onSubmit,
     this.onChange,
     required this.controller,
-    required this.type,
+    this.type,
     required this.validate,
     required this.label,
     this.prefix,
     this.border,
     this.suffix,
-     required this.obSecureText,
+    this.obSecureText,
   });
   final bool readOnly = false;
   final Function()? onTab;
   final Function(String)? onSubmit;
   final Function(String)? onChange;
-  final borderRadius = 16.0;
   final TextEditingController controller;
-  final TextInputType type;
+  final TextInputType? type;
   final FormFieldValidator<String> validate;
   final String label;
-  final prefix;
-   bool obSecureText = false;
+  final IconData? prefix;
+  final bool? obSecureText;
   final border;
-  final suffix;
+  final Widget? suffix;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscureText: obSecureText,
+      obscureText: obSecureText ?? false,
       readOnly: readOnly,
       onTap: onTab,
       controller: controller,
-      keyboardType: type,
+      keyboardType: type ?? TextInputType.text,
       onFieldSubmitted: onSubmit,
       onChanged: onChange,
       validator: validate,

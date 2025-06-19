@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../styles/style.dart';
 
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({super.key, this.onPressed, required this.text});
+class CustomBtn extends StatelessWidget {
+  const CustomBtn({super.key, this.onPressed, required this.text});
 
   final Function()? onPressed;
 

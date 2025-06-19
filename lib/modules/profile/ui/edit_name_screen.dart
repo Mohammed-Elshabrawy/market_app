@@ -17,7 +17,7 @@ class EditNameScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            DefaultFormFiled(
+            CustomTextFormFiled(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide(
@@ -37,7 +37,7 @@ class EditNameScreen extends StatelessWidget {
               type: TextInputType.text,
             ),
             SizedBox(height: 20),
-            DefaultButton(text: 'Update'),
+            CustomBtn(text: 'Update'),
           ],
         ),
       ),

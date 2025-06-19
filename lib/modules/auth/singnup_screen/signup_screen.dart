@@ -48,7 +48,7 @@ class SignupScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 16),
-                      DefaultFormFiled(
+                      CustomTextFormFiled(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
@@ -70,7 +70,7 @@ class SignupScreen extends StatelessWidget {
                         prefix: Icons.person,
                       ),
                       SizedBox(height: 16),
-                      DefaultFormFiled(
+                      CustomTextFormFiled(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
@@ -95,7 +95,7 @@ class SignupScreen extends StatelessWidget {
                         obSecureText: false,
                       ),
                       SizedBox(height: 16),
-                      DefaultFormFiled(
+                      CustomTextFormFiled(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
@@ -124,7 +124,7 @@ class SignupScreen extends StatelessWidget {
 
                       SizedBox(
                         width: double.infinity,
-                        child: DefaultButton(text: 'Signup', onPressed: () {}),
+                        child: CustomBtn(text: 'Signup', onPressed: () {}),
                       ),
                       SizedBox(height: 10),
                       Stack(
@@ -149,7 +149,7 @@ class SignupScreen extends StatelessWidget {
                       SizedBox(height: 10),
                       SizedBox(
                         width: double.infinity,
-                        child: DefaultButton(
+                        child: CustomBtn(
                           text: "Signup with Google",
                           onPressed: () {},
                         ),
