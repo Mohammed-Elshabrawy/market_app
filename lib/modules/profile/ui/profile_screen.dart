@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:market_app/modules/profile/ui/widgets/custom_row_btn.dart';
+import 'package:market_app/shared/functions/navigateTo.dart';
 
 import '../../../shared/styles/style.dart';
+import 'edit_name_screen.dart';
+import 'my_orders_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -37,9 +40,9 @@ class ProfileScreen extends StatelessWidget {
                 SizedBox(height: 10),
                 Text("User Email", style: TextStyle(fontSize: 20)),
                 SizedBox(height: 10),
-                CustomProBtn(label: 'Edit Profile', onPressed: () {  }, icon: Icons.person,),
+                CustomProBtn(label: 'Edit Name', onPressed: () {navigateTo(context, EditNameScreen()); }, icon: Icons.person,),
                 SizedBox(height: 10),
-                CustomProBtn(label: 'My Orders', onPressed: () {  }, icon: Icons.shopping_basket_outlined,),
+                CustomProBtn(label: 'My Orders', onPressed: () {navigateTo(context, MyOrdersScreen());  }, icon: Icons.shopping_basket_outlined,),
                 SizedBox(height: 10),
                 CustomProBtn(label: 'LogOut', onPressed: () {  }, icon: Icons.logout_outlined,),
               ],
