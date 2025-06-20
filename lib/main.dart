@@ -5,7 +5,6 @@ import 'package:market_app/shared/network/remoote/supabase_key.dart';
 import 'package:market_app/shared/styles/style.dart';
 import 'modules/auth/logic/authentication_cubit.dart';
 import 'modules/auth/login_screen/login_screen.dart';
-
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main()  async {
