@@ -23,7 +23,7 @@ class CustomTextFormFiled extends StatelessWidget {
   final TextInputType? type;
   final FormFieldValidator<String> validate;
   final String label;
-  final IconData? prefix;
+  final Widget? prefix;
   final bool? obSecureText;
   final border;
   final Widget? suffix;
@@ -42,7 +42,7 @@ class CustomTextFormFiled extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         suffixIcon: suffix, // Icon
-        prefixIcon: Icon(prefix), // Icon
+        prefixIcon: prefix, // Icon
         focusedBorder: border,
         enabledBorder: border,
         border: border,

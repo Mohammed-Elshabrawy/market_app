@@ -20,13 +20,32 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   TextEditingController signupEmailController = TextEditingController();
   TextEditingController signupPasswordController = TextEditingController();
   TextEditingController signupNameController = TextEditingController();
+
   TextEditingController forgetPasswordEmailController = TextEditingController();
   bool isPassword = false;
+  bool isPasswordSignUp = false;
+  bool isLoginEmailValid=false;
+  bool isLoginPasswordValid=false;
 
   void changeLoginPasswordVisibility() {
     isPassword = !isPassword;
     print(isPassword);
     emit(ChangeLoginPasswordVisibility());
+  }
+  // void changeSignUpPasswordVisibility() {
+  //   isPasswordSignUp = !isPasswordSignUp;
+  //   print(isPasswordSignUp);
+  //   emit(ChangeSignUpPasswordVisibility());
+  // }
+  void changeIsLoginEmailValid(bool newValue){
+    isLoginEmailValid=newValue;
+    emit(updateVaild());
+
+  }
+  void changeIsLoginPasswordValid(bool newValue){
+    isLoginPasswordValid=newValue;
+    emit(updateVaild());
+
   }
 
   Future<void> login({required String email, required String password}) async {

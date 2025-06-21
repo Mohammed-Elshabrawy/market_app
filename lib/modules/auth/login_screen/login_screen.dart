@@ -84,6 +84,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     onChange: (v) {
                                       cubit.loginFormKey.currentState!
                                           .validate();
+                                      final regex = RegExp(r"[^@]+@[^.]+\..+");
+                                      if (v.isEmpty || !regex.hasMatch(v)) {
+                                        cubit.changeIsLoginEmailValid(false);
+                                      } else {
+                                        cubit.changeIsLoginEmailValid(true);
+                                      }
                                     },
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(16),
@@ -105,13 +111,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                       return null;
                                     },
                                     label: 'Email',
-                                    prefix: Icons.email,
+                                    prefix: Icon(
+                                      Icons.email,
+                                      color: cubit.isLoginEmailValid == true
+                                          ? AppColors.kPrimaryColor
+                                          : AppColors.kGreyColor,
+                                    ),
                                   ),
                                   SizedBox(height: 16),
                                   CustomTextFormFiled(
                                     onChange: (v) {
                                       cubit.loginFormKey.currentState!
                                           .validate();
+                                      if (v.isEmpty || v.length < 6) {
+                                        cubit.changeIsLoginPasswordValid(false);
+                                      } else {
+                                        cubit.changeIsLoginPasswordValid(true);
+                                      }
                                     },
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(16),
@@ -133,7 +149,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     },
                                     obSecureText: cubit.isPassword,
                                     label: 'Password',
-                                    prefix: Icons.password,
+                                    prefix: Icon(
+                                      Icons.password,
+                                      color: cubit.isLoginPasswordValid
+                                          ? AppColors.kPrimaryColor
+                                          : AppColors.kGreyColor,
+                                    ),
                                     suffix: IconButton(
                                       onPressed:
                                           cubit.changeLoginPasswordVisibility,

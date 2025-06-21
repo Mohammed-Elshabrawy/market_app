@@ -54,7 +54,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                         return null;
                       },
                       label: 'Email',
-                      prefix: Icons.email, obSecureText: false,
+                      prefix: Icon(Icons.email), obSecureText: false,
                     ),
                     SizedBox(height: 16),
                     SizedBox(

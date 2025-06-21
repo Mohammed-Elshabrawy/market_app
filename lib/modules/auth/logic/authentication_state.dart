@@ -19,3 +19,5 @@ final class SingUpError extends AuthenticationState {
   SingUpError({required this.message});
 }
 
+final class ChangeSignUpPasswordVisibility extends AuthenticationState {}
+final class updateVaild extends AuthenticationState {}
