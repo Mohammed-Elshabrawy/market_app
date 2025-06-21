@@ -12,6 +12,8 @@ final class LoginError extends AuthenticationState {
 }
 final class ChangeLoginPasswordVisibility extends AuthenticationState {}
 
+
+
 final class SingUpLoading extends AuthenticationState {}
 final class SingUpSuccess extends AuthenticationState {}
 final class SingUpError extends AuthenticationState {
@@ -20,4 +22,4 @@ final class SingUpError extends AuthenticationState {
 }
 
 final class ChangeSignUpPasswordVisibility extends AuthenticationState {}
-final class updateVaild extends AuthenticationState {}
+final class UpdateIconValidation extends AuthenticationState {}

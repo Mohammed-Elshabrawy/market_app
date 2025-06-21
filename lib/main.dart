@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:market_app/modules/auth/signup_screen/signup_screen.dart';
+import 'package:market_app/modules/auth/login_screen/login_screen.dart';
+import 'package:market_app/modules/navbar/ui/main_home_screen.dart';
 import 'package:market_app/shared/bloc_observer.dart';
 import 'package:market_app/shared/network/remoote/supabase_key.dart';
 import 'package:market_app/shared/styles/style.dart';
@@ -22,6 +23,7 @@ class Market extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SupabaseClient clint = Supabase.instance.client;
     return BlocProvider(
       create: (BuildContext context)=>AuthenticationCubit(),
       child: MaterialApp(
@@ -31,7 +33,7 @@ class Market extends StatelessWidget {
           scaffoldBackgroundColor: AppColors.kScaffoldColor,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
-        home: const SignupScreen(),
+        home:clint.auth.currentUser!=null? MainHomeScreen(): const LoginScreen(),
       ),
     );
   }

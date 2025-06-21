@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomTextFormFiled extends StatelessWidget {
-  CustomTextFormFiled({
+  const CustomTextFormFiled({
     super.key,
     this.onTab,
     this.onSubmit,

@@ -31,7 +31,10 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (BuildContext context, state) {
         if (state is LoginSuccess) {
-          navigateTo(context, MainHomeScreen());
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => MainHomeScreen()),
+          );
         } else if (state is LoginError) {
           showMsg(context, state, text: state.message);
         }
@@ -82,8 +85,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   SizedBox(height: 16),
                                   CustomTextFormFiled(
                                     onChange: (v) {
-                                      cubit.loginFormKey.currentState!
-                                          .validate();
                                       final regex = RegExp(r"[^@]+@[^.]+\..+");
                                       if (v.isEmpty || !regex.hasMatch(v)) {
                                         cubit.changeIsLoginEmailValid(false);
@@ -121,8 +122,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   SizedBox(height: 16),
                                   CustomTextFormFiled(
                                     onChange: (v) {
-                                      cubit.loginFormKey.currentState!
-                                          .validate();
                                       if (v.isEmpty || v.length < 6) {
                                         cubit.changeIsLoginPasswordValid(false);
                                       } else {
