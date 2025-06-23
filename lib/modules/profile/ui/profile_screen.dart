@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market_app/modules/profile/ui/widgets/custom_row_btn.dart';
 import 'package:market_app/shared/functions/navigateTo.dart';
-
 import '../../../models/user_model.dart';
 import '../../../shared/components/custom_indicator.dart';
 import '../../../shared/functions/navigate_to_without_back.dart';
@@ -18,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context)=>AuthenticationCubit()..getUserData(),
+      create: (BuildContext context) => AuthenticationCubit()..getUserData(),
       child: BlocConsumer<AuthenticationCubit, AuthenticationState>(
         listener: (BuildContext context, state) {
           if (state is SignOutSuccess) {
