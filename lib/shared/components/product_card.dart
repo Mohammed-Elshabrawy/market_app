@@ -8,8 +8,8 @@ import 'cache_image.dart';
 import 'custom_btn.dart';
 
 class ProductCard extends StatelessWidget {
-  ProductCard({super.key, required this.product});
-  ProductModel product = ProductModel();
+  const ProductCard({super.key, required this.product});
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
