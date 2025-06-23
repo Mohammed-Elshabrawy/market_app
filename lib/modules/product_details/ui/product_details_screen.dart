@@ -49,7 +49,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(product.productName ?? "product name"),
-                                Text('${product.price} LE' ?? "4500 LE"),
+                                Text('${product.price} LE'),
                               ],
                             ),
                             SizedBox(height: 20),
@@ -82,9 +82,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               ),
                               itemBuilder: (context, _) =>
                                   Icon(Icons.star, color: Colors.amber),
-                              onRatingUpdate: (rating) {
-                                print(rating);
-                              },
+                              onRatingUpdate: (rating) {},
                             ),
                             SizedBox(height: 20),
                             CustomTextFormFiled(
