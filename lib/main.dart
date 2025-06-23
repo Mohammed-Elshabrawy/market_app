@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market_app/modules/auth/login_screen/login_screen.dart';
 import 'package:market_app/modules/navbar/ui/main_home_screen.dart';
 import 'package:market_app/shared/bloc_observer.dart';
-import 'package:market_app/shared/network/remoote/supabase_key.dart';
+import 'package:market_app/shared/network/remote/supabase_key.dart';
 import 'package:market_app/shared/styles/style.dart';
 import 'modules/auth/logic/authentication_cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
