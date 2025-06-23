@@ -127,7 +127,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   }) async {
     emit(UserDataAddedLoading());
     try {
-      await clint.from('users').insert({
+      await clint.from('users').upsert({
         'id': clint.auth.currentUser!.id,
         'name': name,
         'email': email,
