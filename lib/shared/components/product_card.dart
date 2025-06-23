@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:market_app/models/product_model.dart';
 
 import '../../modules/product_details/ui/product_details_screen.dart';
 import '../functions/navigateTo.dart';
 import '../styles/style.dart';
 import 'cache_image.dart';
 import 'custom_btn.dart';
-class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
 
+class ProductCard extends StatelessWidget {
+  ProductCard({super.key, required this.product});
+  ProductModel product = ProductModel();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -29,7 +31,8 @@ class ProductCard extends StatelessWidget {
                   ),
                   child: CacheImage(
                     url:
-                    'https://imgs.search.brave.com/8PNka3Uob4IQ2a2AuN8GARnb4voItLxv_pRQcoevEwA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZW5k/aGFtYmlrZXMuY29t/L2Nkbi9zaG9wL3By/b2R1Y3RzLzEyOTEw/VGhydXN0ZXJTYXR1/cm45UC5qcGc_dj0x/NjgzNTU3MjAzJndp/ZHRoPTk1MA',
+                        product.imageUrl ??
+                        'https://imgs.search.brave.com/8PNka3Uob4IQ2a2AuN8GARnb4voItLxv_pRQcoevEwA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZW5k/aGFtYmlrZXMuY29t/L2Nkbi9zaG9wL3By/b2R1Y3RzLzEyOTEw/VGhydXN0ZXJTYXR1/cm45UC5qcGc_dj0x/NjgzNTU3MjAzJndp/ZHRoPTk1MA',
                   ),
                 ),
                 Positioned(
@@ -45,7 +48,7 @@ class ProductCard extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        "10 % OFF",
+                        "${product.sale} % OFF",
                         style: TextStyle(
                           color: AppColors.kWhiteColor,
                           fontSize: 14,
@@ -68,7 +71,7 @@ class ProductCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Bike",
+                          product.productName ?? "Product Name",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -76,7 +79,10 @@ class ProductCard extends StatelessWidget {
                         ),
                         IconButton(
                           onPressed: () {},
-                          icon: Icon(Icons.favorite, color: AppColors.kGreyColor),
+                          icon: Icon(
+                            Icons.favorite,
+                            color: AppColors.kGreyColor,
+                          ),
                         ),
                       ],
                     ),
@@ -86,14 +92,14 @@ class ProductCard extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              "4500 LE",
+                              product.price ?? "Price",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              "5000 LE",
+                              product.oldPrice ?? "Old Price",
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
