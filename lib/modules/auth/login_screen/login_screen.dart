@@ -22,6 +22,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController loginEmailController = TextEditingController();
   TextEditingController loginPasswordController = TextEditingController();
+  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     loginEmailController.dispose();
@@ -36,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state is LoginSuccess) {
           navigateToWithoutBack(context, screen: MainHomeScreen());
         } else if (state is LoginError) {
-          showMsg(context, state, text: state.message);
+          showMsg(context, text: state.message);
         }
       },
       builder: (BuildContext context, state) {
@@ -47,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
               : SafeArea(
                   child: SingleChildScrollView(
                     child: Form(
-                      key: cubit.loginFormKey,
+                      key: loginFormKey,
                       child: Column(
                         children: [
                           SizedBox(height: 30),
@@ -195,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: CustomBtn(
                                       text: 'Login',
                                       onPressed: () {
-                                        if (cubit.loginFormKey.currentState!
+                                        if (loginFormKey.currentState!
                                             .validate()) {
                                           cubit.login(
                                             email: loginEmailController.text

@@ -11,11 +11,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   SupabaseClient clint = Supabase.instance.client;
 
-  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
-  GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
 
-  TextEditingController forgetPasswordEmailController = TextEditingController();
 
   bool isPassword = true;
   bool isPasswordSignUp = true;
@@ -24,6 +21,12 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   bool isSignUpEmailValid = false;
   bool isSignUpPasswordValid = false;
   bool isSignUpNameValid = false;
+  bool isForgotPasswordEmailValid = false;
+
+  void changeIsForgotPasswordEmailValid(bool value) {
+    isForgotPasswordEmailValid = value;
+    emit(UpdateIconValidation());
+  }
 
   void changeLoginPasswordVisibility() {
     isPassword = !isPassword;
@@ -105,6 +108,18 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       emit(SignOutError(message: e.message));
     } catch (e) {
       emit(SignOutError(message: e.toString()));
+    }
+  }
+
+  Future<void> resetPassword({required String email}) async {
+    emit(ForgotPasswordLoading());
+    try {
+      await clint.auth.resetPasswordForEmail(email);
+      changeIsForgotPasswordEmailValid(false);
+      emit(ForgotPasswordSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(ForgotPasswordError(message: e.toString()));
     }
   }
 }

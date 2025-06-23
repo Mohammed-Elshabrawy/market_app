@@ -21,6 +21,8 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController signupEmailController = TextEditingController();
   TextEditingController signupPasswordController = TextEditingController();
   TextEditingController signupNameController = TextEditingController();
+  GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     signupNameController.dispose();
@@ -36,8 +38,8 @@ class _SignupScreenState extends State<SignupScreen> {
       listener: (BuildContext context, state) {
         if (state is SingUpSuccess) {
           navigateToWithoutBack(context, screen: MainHomeScreen());
-        } else if (state is LoginError) {
-          showMsg(context, state, text: state.message);
+        } else if (state is SingUpError) {
+          showMsg(context, text: state.message);
         }
       },
       builder: (BuildContext context, state) {
@@ -47,7 +49,7 @@ class _SignupScreenState extends State<SignupScreen> {
               : SafeArea(
                   child: SingleChildScrollView(
                     child: Form(
-                      key: cubit.signupFormKey,
+                      key: signupFormKey,
                       child: Column(
                         children: [
                           SizedBox(height: 30),
@@ -133,7 +135,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         width: 2,
                                       ),
                                     ),
-                                    controller:signupEmailController,
+                                    controller: signupEmailController,
                                     type: TextInputType.emailAddress,
                                     validate: (String? value) {
                                       final regex = RegExp(r"[^@]+@[^.]+\..+");
@@ -208,14 +210,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                     child: CustomBtn(
                                       text: 'Signup',
                                       onPressed: () {
-                                        if (cubit.signupFormKey.currentState!
+                                        if (signupFormKey.currentState!
                                             .validate()) {
                                           cubit.register(
-                                            name: signupNameController
-                                                .text
+                                            name: signupNameController.text
                                                 .trim(),
-                                            email: signupEmailController
-                                                .text
+                                            email: signupEmailController.text
                                                 .trim(),
                                             password: signupPasswordController
                                                 .text
