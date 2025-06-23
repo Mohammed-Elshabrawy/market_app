@@ -15,13 +15,13 @@ final class LoginError extends AuthenticationState {
 
 final class ChangeLoginPasswordVisibility extends AuthenticationState {}
 
-final class SingUpLoading extends AuthenticationState {}
+final class SignUpLoading extends AuthenticationState {}
 
-final class SingUpSuccess extends AuthenticationState {}
+final class SignUpSuccess extends AuthenticationState {}
 
-final class SingUpError extends AuthenticationState {
+final class SignUpError extends AuthenticationState {
   final String message;
-  SingUpError({required this.message});
+  SignUpError({required this.message});
 }
 
 final class ChangeSignUpPasswordVisibility extends AuthenticationState {}
@@ -45,3 +45,11 @@ final class ForgotPasswordError extends AuthenticationState {
   final String message;
   ForgotPasswordError({required this.message});
 }
+
+final class UserDataAddedLoading extends AuthenticationState {}
+final class UserDataAddedSuccess extends AuthenticationState {}
+final class UserDataAddedError extends AuthenticationState {
+    final String message;
+    UserDataAddedError({required this.message});
+}
+

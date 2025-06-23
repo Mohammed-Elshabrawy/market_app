@@ -36,15 +36,15 @@ class _SignupScreenState extends State<SignupScreen> {
     AuthenticationCubit cubit = AuthenticationCubit.get(context);
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (BuildContext context, state) {
-        if (state is SingUpSuccess) {
+        if (state is SignUpSuccess) {
           navigateToWithoutBack(context, screen: MainHomeScreen());
-        } else if (state is SingUpError) {
+        } else if (state is SignUpError) {
           showMsg(context, text: state.message);
         }
       },
       builder: (BuildContext context, state) {
         return Scaffold(
-          body: state is SingUpLoading
+          body: state is SignUpLoading || state is UserDataAddedLoading
               ? Center(child: CircularProgressIndicator())
               : SafeArea(
                   child: SingleChildScrollView(

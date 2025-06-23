@@ -11,9 +11,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   SupabaseClient clint = Supabase.instance.client;
 
-
-
-
   bool isPassword = true;
   bool isPasswordSignUp = true;
   bool isLoginEmailValid = false;
@@ -83,18 +80,19 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     required String email,
     required String password,
   }) async {
-    emit(SingUpLoading());
+    emit(SignUpLoading());
     try {
       await clint.auth.signUp(password: password, email: email);
       changeIsSignUpEmailValid(false);
       changeIsSignUpPasswordValid(false);
       changeIsSignUpNameValid(false);
-      emit(SingUpSuccess());
+      await addUserData(name: name, email: email);
+      emit(SignUpSuccess());
     } on AuthException catch (e) {
       log(e.message);
-      emit(SingUpError(message: e.message));
+      emit(SignUpError(message: e.message));
     } catch (e) {
-      emit(SingUpError(message: e.toString()));
+      emit(SignUpError(message: e.toString()));
     }
   }
 
@@ -120,6 +118,24 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     } catch (e) {
       log(e.toString());
       emit(ForgotPasswordError(message: e.toString()));
+    }
+  }
+
+  Future<void> addUserData({
+    required String name,
+    required String email,
+  }) async {
+    emit(UserDataAddedLoading());
+    try {
+      await clint.from('users').insert({
+        'id': clint.auth.currentUser!.id,
+        'name': name,
+        'email': email,
+      });
+      emit(UserDataAddedSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(UserDataAddedError(message: e.toString()));
     }
   }
 }
