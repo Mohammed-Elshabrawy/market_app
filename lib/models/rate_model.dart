@@ -1,7 +1,7 @@
 class RateModel {
   String? id;
   String? createdAt;
-  num? rate;
+  int? rate;
   String? forUser;
   String? forProduct;
 

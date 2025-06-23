@@ -14,7 +14,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        navigateTo(context, ProductDetailsScreen());
+        navigateTo(context, ProductDetailsScreen(product: product));
       },
       child: Card(
         color: AppColors.kWhiteColor,
