@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../layout/navbar/ui/main_home_screen.dart';
 import '../../../shared/components/custom_btn.dart';
 import '../../../shared/components/custom_indicator.dart';
 import '../../../shared/components/custom_text_filed.dart';
@@ -7,7 +9,6 @@ import '../../../shared/functions/navigateTo.dart';
 import '../../../shared/functions/navigate_to_without_back.dart';
 import '../../../shared/functions/showMsg.dart';
 import '../../../shared/styles/style.dart';
-import '../../navbar/ui/main_home_screen.dart';
 import '../forget_password_Screen/forgot_password_screen.dart';
 import '../logic/authentication_cubit.dart';
 import '../signup_screen/signup_screen.dart';
