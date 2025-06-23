@@ -53,3 +53,11 @@ final class UserDataAddedError extends AuthenticationState {
     UserDataAddedError({required this.message});
 }
 
+final class GetUserDataLoading extends AuthenticationState {}
+final class GetUserDataSuccess extends AuthenticationState {}
+final class GetUserDataError extends AuthenticationState {
+    final String message;
+    GetUserDataError({required this.message});
+}
+
+

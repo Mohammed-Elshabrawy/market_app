@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market_app/modules/profile/ui/widgets/custom_row_btn.dart';
 import 'package:market_app/shared/functions/navigateTo.dart';
 
+import '../../../models/user_model.dart';
 import '../../../shared/components/custom_indicator.dart';
 import '../../../shared/functions/navigate_to_without_back.dart';
 import '../../../shared/styles/style.dart';
@@ -23,6 +24,7 @@ class ProfileScreen extends StatelessWidget {
         }
       },
       builder: (BuildContext context, state) {
+        UserDataModel? user = AuthenticationCubit.get(context).userDataModel;
         AuthenticationCubit cubit = AuthenticationCubit.get(context);
         return state is SignOutLoading
             ? CustomCircularIndicator()
@@ -49,17 +51,16 @@ class ProfileScreen extends StatelessWidget {
                             foregroundColor: AppColors.kWhiteColor,
                             child: Icon(Icons.person, size: 45),
                           ),
-
                           SizedBox(height: 10),
                           Text(
-                            "User Name",
+                            user!.name,
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           SizedBox(height: 10),
-                          Text("User Email", style: TextStyle(fontSize: 20)),
+                          Text(user.email),
                           SizedBox(height: 10),
                           CustomProBtn(
                             label: 'Edit Name',

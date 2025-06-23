@@ -1,6 +1,6 @@
 import 'dart:developer';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:market_app/models/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'authentication_state.dart';
@@ -66,6 +66,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       await clint.auth.signInWithPassword(password: password, email: email);
       changeIsLoginEmailValid(false);
       changeIsLoginPasswordValid(false);
+      await getUserData();
       emit(LoginSuccess());
     } on AuthException catch (e) {
       log(e.message);
@@ -87,6 +88,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       changeIsSignUpPasswordValid(false);
       changeIsSignUpNameValid(false);
       await addUserData(name: name, email: email);
+      await getUserData();
       emit(SignUpSuccess());
     } on AuthException catch (e) {
       log(e.message);
@@ -136,6 +138,26 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     } catch (e) {
       log(e.toString());
       emit(UserDataAddedError(message: e.toString()));
+    }
+  }
+
+  UserDataModel? userDataModel;
+  Future<void> getUserData() async {
+    emit(GetUserDataLoading());
+    try {
+      final data = await clint
+          .from('users')
+          .select()
+          .eq('id', clint.auth.currentUser!.id);
+      userDataModel = UserDataModel(
+        userId: data[0]['id'],
+        name: data[0]['name'],
+        email: data[0]['email'],
+      );
+      emit(GetUserDataSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(GetUserDataError(message: e.toString()));
     }
   }
 }
