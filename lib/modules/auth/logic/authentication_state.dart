@@ -23,3 +23,10 @@ final class SingUpError extends AuthenticationState {
 
 final class ChangeSignUpPasswordVisibility extends AuthenticationState {}
 final class UpdateIconValidation extends AuthenticationState {}
+
+final class SignOutLoading extends AuthenticationState {}
+final class SignOutSuccess extends AuthenticationState {}
+final class SignOutError extends AuthenticationState {
+  final String message;
+  SignOutError({required this.message});
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:market_app/shared/functions/navigate_to_without_back.dart';
 import '../../../shared/components/custom_btn.dart';
 import '../../../shared/components/custom_text_filed.dart';
 import '../../../shared/functions/navigateTo.dart';
@@ -17,11 +18,14 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  TextEditingController signupEmailController = TextEditingController();
+  TextEditingController signupPasswordController = TextEditingController();
+  TextEditingController signupNameController = TextEditingController();
   @override
   void dispose() {
-    AuthenticationCubit.get(context).signupNameController.dispose();
-    AuthenticationCubit.get(context).signupEmailController.dispose();
-    AuthenticationCubit.get(context).signupPasswordController.dispose();
+    signupNameController.dispose();
+    signupEmailController.dispose();
+    signupPasswordController.dispose();
     super.dispose();
   }
 
@@ -31,10 +35,7 @@ class _SignupScreenState extends State<SignupScreen> {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (BuildContext context, state) {
         if (state is SingUpSuccess) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => MainHomeScreen()),
-          );
+          navigateToWithoutBack(context, screen: MainHomeScreen());
         } else if (state is LoginError) {
           showMsg(context, state, text: state.message);
         }
@@ -97,7 +98,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         width: 2,
                                       ),
                                     ),
-                                    controller: cubit.signupNameController,
+                                    controller: signupNameController,
                                     type: TextInputType.name,
                                     validate: (String? value) {
                                       if (value!.isEmpty) {
@@ -132,7 +133,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         width: 2,
                                       ),
                                     ),
-                                    controller: cubit.signupEmailController,
+                                    controller:signupEmailController,
                                     type: TextInputType.emailAddress,
                                     validate: (String? value) {
                                       final regex = RegExp(r"[^@]+@[^.]+\..+");
@@ -171,7 +172,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         width: 2,
                                       ),
                                     ),
-                                    controller: cubit.signupPasswordController,
+                                    controller: signupPasswordController,
                                     type: TextInputType.visiblePassword,
                                     validate: (String? value) {
                                       if (value!.isEmpty) {
@@ -202,7 +203,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ),
                                   ),
                                   SizedBox(height: 16),
-
                                   SizedBox(
                                     width: double.infinity,
                                     child: CustomBtn(
@@ -211,16 +211,13 @@ class _SignupScreenState extends State<SignupScreen> {
                                         if (cubit.signupFormKey.currentState!
                                             .validate()) {
                                           cubit.register(
-                                            name: cubit
-                                                .signupNameController
+                                            name: signupNameController
                                                 .text
                                                 .trim(),
-                                            email: cubit
-                                                .signupEmailController
+                                            email: signupEmailController
                                                 .text
                                                 .trim(),
-                                            password: cubit
-                                                .signupPasswordController
+                                            password: signupPasswordController
                                                 .text
                                                 .trim(),
                                           );

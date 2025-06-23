@@ -4,6 +4,7 @@ import '../../../shared/components/custom_btn.dart';
 import '../../../shared/components/custom_indicator.dart';
 import '../../../shared/components/custom_text_filed.dart';
 import '../../../shared/functions/navigateTo.dart';
+import '../../../shared/functions/navigate_to_without_back.dart';
 import '../../../shared/functions/showMsg.dart';
 import '../../../shared/styles/style.dart';
 import '../../navbar/ui/main_home_screen.dart';
@@ -19,10 +20,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController loginEmailController = TextEditingController();
+  TextEditingController loginPasswordController = TextEditingController();
   @override
   void dispose() {
-    AuthenticationCubit.get(context).loginEmailController.dispose();
-    AuthenticationCubit.get(context).loginEmailController.dispose();
+    loginEmailController.dispose();
+    loginPasswordController.dispose();
     super.dispose();
   }
 
@@ -31,10 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (BuildContext context, state) {
         if (state is LoginSuccess) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => MainHomeScreen()),
-          );
+          navigateToWithoutBack(context, screen: MainHomeScreen());
         } else if (state is LoginError) {
           showMsg(context, state, text: state.message);
         }
@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         width: 2,
                                       ),
                                     ),
-                                    controller: cubit.loginEmailController,
+                                    controller: loginEmailController,
                                     type: TextInputType.emailAddress,
                                     validate: (String? value) {
                                       final regex = RegExp(r"[^@]+@[^.]+\..+");
@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         width: 2,
                                       ),
                                     ),
-                                    controller: cubit.loginPasswordController,
+                                    controller: loginPasswordController,
                                     type: TextInputType.visiblePassword,
                                     validate: (String? value) {
                                       if (value!.isEmpty) {
@@ -198,12 +198,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         if (cubit.loginFormKey.currentState!
                                             .validate()) {
                                           cubit.login(
-                                            email: cubit
-                                                .loginEmailController
-                                                .text
+                                            email: loginEmailController.text
                                                 .trim(),
-                                            password: cubit
-                                                .loginPasswordController
+                                            password: loginPasswordController
                                                 .text
                                                 .trim(),
                                           );

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -13,19 +12,13 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   SupabaseClient clint = Supabase.instance.client;
 
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  TextEditingController loginEmailController = TextEditingController();
-  TextEditingController loginPasswordController = TextEditingController();
-
 
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
-  TextEditingController signupEmailController = TextEditingController();
-  TextEditingController signupPasswordController = TextEditingController();
-  TextEditingController signupNameController = TextEditingController();
 
   TextEditingController forgetPasswordEmailController = TextEditingController();
 
-  bool isPassword = false;
-  bool isPasswordSignUp = false;
+  bool isPassword = true;
+  bool isPasswordSignUp = true;
   bool isLoginEmailValid = false;
   bool isLoginPasswordValid = false;
   bool isSignUpEmailValid = false;
@@ -36,11 +29,11 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     isPassword = !isPassword;
     emit(ChangeLoginPasswordVisibility());
   }
+
   void changeSignUpPasswordVisibility() {
     isPasswordSignUp = !isPasswordSignUp;
     emit(ChangeSignUpPasswordVisibility());
   }
-
 
   void changeIsLoginEmailValid(bool newValue) {
     isLoginEmailValid = newValue;
@@ -71,6 +64,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     emit(LoginLoading());
     try {
       await clint.auth.signInWithPassword(password: password, email: email);
+      changeIsLoginEmailValid(false);
+      changeIsLoginPasswordValid(false);
       emit(LoginSuccess());
     } on AuthException catch (e) {
       log(e.message);
@@ -79,16 +74,37 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       emit(LoginError(message: e.toString()));
     }
   }
-  Future<void> register({required String name, required String email, required String password}) async {
+
+  Future<void> register({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
     emit(SingUpLoading());
     try {
-      await clint.auth.signUp(password: password,email: email,);
+      await clint.auth.signUp(password: password, email: email);
+      changeIsSignUpEmailValid(false);
+      changeIsSignUpPasswordValid(false);
+      changeIsSignUpNameValid(false);
       emit(SingUpSuccess());
     } on AuthException catch (e) {
       log(e.message);
       emit(SingUpError(message: e.message));
     } catch (e) {
       emit(SingUpError(message: e.toString()));
+    }
+  }
+
+  Future<void> signOut() async {
+    emit(SignOutLoading());
+    try {
+      await clint.auth.signOut();
+      emit(SignOutSuccess());
+    } on AuthException catch (e) {
+      log(e.message);
+      emit(SignOutError(message: e.message));
+    } catch (e) {
+      emit(SignOutError(message: e.toString()));
     }
   }
 }
