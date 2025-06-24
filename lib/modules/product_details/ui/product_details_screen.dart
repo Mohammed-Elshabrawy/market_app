@@ -178,7 +178,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               ],
                             ),
                             SizedBox(height: 15),
-                            CommentsList(),
+                            CommentsList(product: widget.product),
                           ],
                         ),
                       ),
