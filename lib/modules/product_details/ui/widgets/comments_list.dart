@@ -39,12 +39,14 @@ class CommentsList extends StatelessWidget {
 }
 
 class UserComment extends StatelessWidget {
-  UserComment({super.key, required this.commentsData});
+  const UserComment({super.key, required this.commentsData});
   final Map<String, dynamic>? commentsData;
 
   @override
   Widget build(BuildContext context) {
-    var date = DateTime.parse(commentsData!['created_at']);
+    var date = DateTime.parse(
+      commentsData!['created_at'],
+    ).add(Duration(hours: 3));
     final dateFormat = DateFormat.yMEd().format(date);
     final timeFormat = DateFormat.Hm().format(date);
 

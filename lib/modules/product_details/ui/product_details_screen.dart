@@ -125,6 +125,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   onPressed: () async {
                                     if (commentFormKey.currentState!
                                         .validate()) {
+                                      await context
+                                          .read<AuthenticationCubit>()
+                                          .getUserData();
                                       await cubit.addComment(
                                         data: {
                                           "comment": commentController.text
