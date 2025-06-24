@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market_app/shared/network/remote/api_services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -80,6 +82,17 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       emit(AddOrUpdateRateSuccess());
     } catch (e) {
       emit(AddOrUpdateRateError());
+    }
+  }
+
+  Future<void> addComment({required Map<String, dynamic> data}) async {
+    emit(AddCommentLoading());
+    try {
+      await _apiServices.postData('comments', data);
+      emit(AddCommentSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(AddCommentError());
     }
   }
 }
