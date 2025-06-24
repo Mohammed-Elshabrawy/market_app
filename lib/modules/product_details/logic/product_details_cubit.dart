@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market_app/shared/network/remote/api_services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -11,6 +13,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   static ProductDetailsCubit get(context) => BlocProvider.of(context);
 
   final ApiServices _apiServices = ApiServices();
+  String? userId() => Supabase.instance.client.auth.currentUser?.id;
   List<RateModel> rates = [];
   int userRate = 5;
   int averageRate = 0;
@@ -33,10 +36,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   void _getUserRate() {
     List<RateModel> userRates = rates
-        .where(
-          (RateModel rate) =>
-              rate.forUser == Supabase.instance.client.auth.currentUser?.id,
-        )
+        .where((RateModel rate) => rate.forUser == userId())
         .toList();
     userRate = userRates.isNotEmpty ? userRates[0].rate! : 5;
   }
@@ -48,5 +48,34 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       }
     }
     averageRate = (averageRate / rates.length).toInt();
+  }
+
+  bool _checkUserRateExist({required String productId}) {
+    for (var rate in rates) {
+      if (rate.forUser == userId() && rate.forProduct == productId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Future<void> addOrUpdateRate({
+    required String productId,
+    required int rate,
+    required Map<String, dynamic> data,
+  }) async {
+    emit(AddOrUpdateRateLoading());
+    try {
+      String path =
+          "rates?select=*&for_user=eq.$userId()8&for_product=eq.$productId";
+      if (_checkUserRateExist(productId: productId)) {
+        await _apiServices.patchData(path, data);
+      } else {
+        await _apiServices.postData(path, data);
+      }
+      emit(AddOrUpdateRateSuccess());
+    } catch (e) {
+      log(e.toString() as num);
+    }
   }
 }
