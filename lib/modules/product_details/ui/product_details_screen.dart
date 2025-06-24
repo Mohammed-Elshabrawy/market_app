@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:market_app/modules/product_details/ui/widgets/comments_list.dart';
+import 'package:market_app/shared/functions/navigate_to_without_back.dart';
 import 'package:market_app/shared/styles/style.dart';
 
 import '../../../models/product_model.dart';
@@ -21,7 +22,11 @@ class ProductDetailsScreen extends StatelessWidget {
       create: (BuildContext context) =>
           ProductDetailsCubit()..getRates(productId: product.productId!),
       child: BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
-        listener: (BuildContext context, ProductDetailsState state) {},
+        listener: (BuildContext context, ProductDetailsState state) {
+          if (state is AddOrUpdateRateSuccess) {
+            navigateToWithoutBack(context, screen: this);
+          }
+        },
         builder: (BuildContext context, ProductDetailsState state) {
           ProductDetailsCubit cubit = ProductDetailsCubit.get(context);
           return Scaffold(
@@ -82,7 +87,16 @@ class ProductDetailsScreen extends StatelessWidget {
                               ),
                               itemBuilder: (context, _) =>
                                   Icon(Icons.star, color: Colors.amber),
-                              onRatingUpdate: (rating) {},
+                              onRatingUpdate: (rating) {
+                                cubit.addOrUpdateRate(
+                                  productId: product.productId!,
+                                  data: {
+                                    "rate": rating.toInt(),
+                                    "for_user": cubit.userId(),
+                                    "for_product": product.productId,
+                                  },
+                                );
+                              },
                             ),
                             SizedBox(height: 20),
                             CustomTextFormFiled(
