@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:market_app/modules/home/ui/widgets/categorise_list_view.dart';
+
 import '../../../shared/components/custom_search_filed.dart';
 import '../../../shared/components/product_list.dart';
 
@@ -17,7 +18,7 @@ class HomeScreen extends StatelessWidget {
             searchFunction: () {},
           ),
           SizedBox(height: 15),
-          Image.asset("assets/images/buy.jpg"),
+          Image.asset("assets/images/buy.jpg", fit: BoxFit.cover),
           SizedBox(height: 15),
           Text(
             "Popular Categories",
