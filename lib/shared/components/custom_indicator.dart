@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../functions/isIOS.dart';
 import '../styles/style.dart';
 
 class CustomCircularIndicator extends StatelessWidget {
@@ -7,8 +9,14 @@ class CustomCircularIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: CircularProgressIndicator(color: AppColors.kPrimaryColor),
-    );
+    if (isIOS()) {
+      return Center(
+        child: CupertinoActivityIndicator(color: AppColors.kPrimaryColor),
+      );
+    } else {
+      return Center(
+        child: CircularProgressIndicator(color: AppColors.kPrimaryColor),
+      );
+    }
   }
 }

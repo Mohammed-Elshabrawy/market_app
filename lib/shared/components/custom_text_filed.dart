@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../functions/isIOS.dart';
 
 class CustomTextFormFiled extends StatelessWidget {
   const CustomTextFormFiled({
@@ -30,23 +33,44 @@ class CustomTextFormFiled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: obSecureText ?? false,
-      readOnly: readOnly,
-      onTap: onTab,
-      controller: controller,
-      keyboardType: type ?? TextInputType.text,
-      onFieldSubmitted: onSubmit,
-      onChanged: onChange,
-      validator: validate,
-      decoration: InputDecoration(
-        labelText: label,
-        suffixIcon: suffix, // Icon
-        prefixIcon: prefix, // Icon
-        focusedBorder: border,
-        enabledBorder: border,
-        border: border,
-      ), // InputDecoration
-    );
+    if (!isIOS()) {
+      return TextFormField(
+        obscureText: obSecureText ?? false,
+        readOnly: readOnly,
+        onTap: onTab,
+        controller: controller,
+        keyboardType: type ?? TextInputType.text,
+        onFieldSubmitted: onSubmit,
+        onChanged: onChange,
+        validator: validate,
+        decoration: InputDecoration(
+          labelText: label,
+          suffixIcon: suffix, // Icon
+          prefixIcon: prefix, // Icon
+          focusedBorder: border,
+          enabledBorder: border,
+          border: border,
+        ), // InputDecoration
+      );
+    } else {
+      return CupertinoTextFormFieldRow(
+        obscureText: obSecureText ?? false,
+        readOnly: readOnly,
+        onTap: onTab,
+        controller: controller,
+        keyboardType: type ?? TextInputType.text,
+        onFieldSubmitted: onSubmit,
+        onChanged: onChange,
+        validator: validate,
+        prefix: prefix,
+        placeholder: label,
+
+        decoration: BoxDecoration(
+          // focusedBorder: border,
+          //enabledBorder: border,
+          border: border,
+        ),
+      );
+    }
   }
 }
