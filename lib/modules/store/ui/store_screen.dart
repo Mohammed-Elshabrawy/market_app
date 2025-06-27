@@ -5,7 +5,7 @@ import '../../../shared/components/product_list.dart';
 
 class StoreScreen extends StatelessWidget {
   const StoreScreen({super.key});
-
+  static TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,6 +24,7 @@ class StoreScreen extends StatelessWidget {
           ),
           SizedBox(height: 15),
           CustomSearchFiled(
+            controller: searchController,
             label: 'Search in Market App',
             searchFunction: () {},
           ),

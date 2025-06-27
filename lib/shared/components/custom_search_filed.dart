@@ -7,12 +7,15 @@ class CustomSearchFiled extends StatelessWidget {
     super.key,
     required this.label,
     required this.searchFunction,
+    required this.controller,
   });
   final String label;
   final Function()? searchFunction;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       onTap: () {},
       onChanged: (String value) {},
       decoration: InputDecoration(

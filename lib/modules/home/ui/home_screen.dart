@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:market_app/modules/home/ui/search_view.dart';
 import 'package:market_app/modules/home/ui/widgets/categorise_list_view.dart';
 
 import '../../../shared/components/custom_search_filed.dart';
 import '../../../shared/components/product_list.dart';
+import '../../../shared/functions/navigateTo.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,8 +16,11 @@ class HomeScreen extends StatelessWidget {
       child: ListView(
         children: [
           CustomSearchFiled(
+            controller: searchController,
             label: 'Search in Market App',
-            searchFunction: () {},
+            searchFunction: () {
+              navigateTo(context, SearchView());
+            },
           ),
           SizedBox(height: 15),
           Image.asset("assets/images/buy.jpg", fit: BoxFit.cover),
