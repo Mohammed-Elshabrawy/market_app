@@ -10,6 +10,7 @@ class HomeCubit extends Cubit<HomeStates> {
   static HomeCubit get(context) => BlocProvider.of(context);
   final ApiServices _apiServices = ApiServices();
   List<ProductModel> products = [];
+  List<ProductModel> searchedProducts = [];
 
   Future<void> getProducts({String? searchText}) async {
     emit(GetDataLoading());
@@ -29,16 +30,12 @@ class HomeCubit extends Cubit<HomeStates> {
 
   void searchProducts(String? searchText) {
     if (searchText != null) {
-      emit(SearchDataLoading());
       for (var product in products) {
         if (product.productName!.toLowerCase().contains(
           searchText.toLowerCase(),
         )) {
-          List<ProductModel> searchedProducts = [];
           searchedProducts.add(product);
-          emit(SearchDataSuccess());
-        } else {
-          emit(SearchDataError());
+          print(product.productName);
         }
       }
     }
