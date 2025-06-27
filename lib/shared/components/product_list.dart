@@ -41,7 +41,17 @@ class ProductList extends StatelessWidget {
                   itemCount: products.length,
                   itemBuilder: (BuildContext context, int index) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: ProductCard(product: products[index]),
+                    child: ProductCard(
+                      isFavorite: HomeCubit.get(
+                        context,
+                      ).checkFavoriteProducts(products[index].productId!),
+                      product: products[index],
+                      onTap: () {
+                        HomeCubit.get(
+                          context,
+                        ).addProductToFavorite(products[index].productId!);
+                      },
+                    ),
                   ),
                 );
         },

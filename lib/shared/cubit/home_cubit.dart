@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../models/product_model.dart';
 import '../network/remote/api_services.dart';
@@ -9,9 +12,12 @@ class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitial());
   static HomeCubit get(context) => BlocProvider.of(context);
   final ApiServices _apiServices = ApiServices();
+  final String userId = Supabase.instance.client.auth.currentUser!.id;
   List<ProductModel> products = [];
   List<ProductModel> searchedProducts = [];
   List<ProductModel> categoryProducts = [];
+
+  Map<String, bool> favoriteProducts = {};
 
   Future<void> getProducts({String? searchText, String? category}) async {
     emit(GetDataLoading());
@@ -27,6 +33,22 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(GetDataSuccess());
     } catch (e) {
       emit(GetDataError());
+    }
+  }
+
+  Future<void> addProductToFavorite(String productId) async {
+    emit(AddProductToFavoriteLoading());
+    try {
+      await _apiServices.postData("favorite_products", {
+        "for_product": productId,
+        "for_user": userId,
+        "is_favorite": true,
+      });
+      favoriteProducts.addAll({productId: true});
+      emit(AddProductToFavoriteSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(AddProductToFavoriteError());
     }
   }
 
@@ -52,5 +74,9 @@ class HomeCubit extends Cubit<HomeStates> {
         }
       }
     }
+  }
+
+  bool checkFavoriteProducts(String productId) {
+    return favoriteProducts.containsKey(productId);
   }
 }

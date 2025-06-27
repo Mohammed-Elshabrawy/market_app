@@ -8,8 +8,15 @@ import 'cache_image.dart';
 import 'custom_btn.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.product});
+  const ProductCard({
+    super.key,
+    required this.product,
+    this.onTap,
+    required this.isFavorite,
+  });
   final ProductModel product;
+  final Function()? onTap;
+  final bool isFavorite;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -78,10 +85,12 @@ class ProductCard extends StatelessWidget {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: onTap,
                           icon: Icon(
                             Icons.favorite,
-                            color: AppColors.kGreyColor,
+                            color: isFavorite
+                                ? AppColors.kPrimaryColor
+                                : AppColors.kGreyColor,
                           ),
                         ),
                       ],

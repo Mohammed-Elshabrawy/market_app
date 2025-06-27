@@ -8,8 +8,8 @@ final class GetDataSuccess extends HomeStates {}
 
 final class GetDataError extends HomeStates {}
 
-final class SearchDataLoading extends HomeStates {}
+final class AddProductToFavoriteLoading extends HomeStates {}
 
-final class SearchDataSuccess extends HomeStates {}
+final class AddProductToFavoriteSuccess extends HomeStates {}
 
-final class SearchDataError extends HomeStates {}
+final class AddProductToFavoriteError extends HomeStates {}
