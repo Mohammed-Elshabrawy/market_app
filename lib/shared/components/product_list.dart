@@ -12,23 +12,29 @@ class ProductList extends StatelessWidget {
     this.shrinkWrap,
     this.physics,
     this.searchText,
+    this.category,
   });
   final bool? shrinkWrap;
   final ScrollPhysics? physics;
   final String? searchText;
+  final String? category;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) =>
-          HomeCubit()..getProducts(searchText: searchText),
+          HomeCubit()..getProducts(searchText: searchText, category: category),
       child: BlocConsumer<HomeCubit, HomeStates>(
         listener: (BuildContext context, state) {},
         builder: (BuildContext context, state) {
           List<ProductModel> products = searchText != null
               ? HomeCubit.get(context).searchedProducts
+              : category != null
+              ? HomeCubit.get(context).categoryProducts
               : HomeCubit.get(context).products;
           return state is GetDataLoading
               ? Center(child: CircularProgressIndicator())
+              : products.isEmpty
+              ? Text("No Products Found")
               : ListView.builder(
                   shrinkWrap: shrinkWrap ?? true,
                   physics: physics ?? NeverScrollableScrollPhysics(),

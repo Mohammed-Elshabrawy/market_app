@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../../../shared/functions/navigateTo.dart';
 import '../../../../shared/styles/style.dart';
+import '../category_view.dart';
 
 class CategoriesList extends StatelessWidget {
-  const CategoriesList({
-    super.key,
-  });
+  const CategoriesList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,20 +16,28 @@ class CategoriesList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => Padding(
           padding: const EdgeInsets.all(5.0),
-          child: Column(
-            children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundColor: AppColors.kPrimaryColor,
-                foregroundColor: AppColors.kWhiteColor,
-                child: Icon(categories[index].icon, size: 40),
-              ),
-              SizedBox(height: 10),
-              Text(
-                categories[index].title,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ],
+          child: GestureDetector(
+            onTap: () {
+              navigateTo(
+                context,
+                CategoryView(category: categories[index].title),
+              );
+            },
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundColor: AppColors.kPrimaryColor,
+                  foregroundColor: AppColors.kWhiteColor,
+                  child: Icon(categories[index].icon, size: 40),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  categories[index].title,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ),
         ),
         itemCount: categories.length,
@@ -37,7 +45,6 @@ class CategoriesList extends StatelessWidget {
     );
   }
 }
-
 
 List<Category> categories = [
   Category(icon: Icons.sports, title: "Sports"),
