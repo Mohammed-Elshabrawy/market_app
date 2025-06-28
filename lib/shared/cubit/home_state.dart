@@ -13,3 +13,9 @@ final class AddProductToFavoriteLoading extends HomeStates {}
 final class AddProductToFavoriteSuccess extends HomeStates {}
 
 final class AddProductToFavoriteError extends HomeStates {}
+
+final class RemoveProductToFavoriteLoading extends HomeStates {}
+
+final class RemoveProductToFavoriteSuccess extends HomeStates {}
+
+final class RemoveProductToFavoriteError extends HomeStates {}

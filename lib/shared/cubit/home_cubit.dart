@@ -52,6 +52,20 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
+  Future<void> removeProductFromFavorite(String productId) async {
+    emit(RemoveProductToFavoriteLoading());
+    try {
+      await _apiServices.deleteData(
+        'favorite_products?for_product=eq.$productId&for_user=eq.$userId',
+      );
+      favoriteProducts.removeWhere((key, value) => key == productId);
+      emit(RemoveProductToFavoriteSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(RemoveProductToFavoriteError());
+    }
+  }
+
   void searchProducts(String? searchText) {
     if (searchText != null) {
       for (var product in products) {
