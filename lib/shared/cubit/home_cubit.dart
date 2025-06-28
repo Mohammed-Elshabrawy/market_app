@@ -28,6 +28,7 @@ class HomeCubit extends Cubit<HomeStates> {
       for (var product in response.data) {
         products.add(ProductModel.fromJson(product));
       }
+      getFavoriteProducts();
       searchProducts(searchText);
       getProductsByCategory(category);
       emit(GetDataSuccess());
@@ -88,6 +89,23 @@ class HomeCubit extends Cubit<HomeStates> {
         }
       }
     }
+  }
+
+  List<ProductModel> favoriteProductsList = [];
+  void getFavoriteProducts() {
+    for (ProductModel product in products) {
+      if (product.favoriteProductsList != null &&
+          product.favoriteProductsList!.isNotEmpty) {
+        for (FavoriteProducts favoriteProduct
+            in product.favoriteProductsList!) {
+          if (favoriteProduct.forUser == userId) {
+            favoriteProductsList.add(product);
+            favoriteProducts.addAll({product.productId!: true});
+          }
+        }
+      }
+    }
+    log(favoriteProductsList[0].productName.toString());
   }
 
   bool checkFavoriteProducts(String productId) {

@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView(
             children: [
               SizedBox(height: 15),
-              Row(
+              /* Row(
                 children: [
                   Text(
                     "Welcome Back, ${AuthenticationCubit.get(context).userDataModel!.name.split(" ")[0]}",
@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Spacer(),
                 ],
-              ),
+              ),*/
               SizedBox(height: 15),
               CustomSearchFiled(
                 controller: _searchController,
