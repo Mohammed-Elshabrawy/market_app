@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../shared/components/product_list.dart';
 
 class FavScreen extends StatelessWidget {
@@ -21,7 +22,7 @@ class FavScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 15),
-          ProductList(),
+          ProductList(isFavoriteScreen: true),
         ],
       ),
     );

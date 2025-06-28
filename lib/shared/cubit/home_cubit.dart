@@ -20,6 +20,9 @@ class HomeCubit extends Cubit<HomeStates> {
   Map<String, bool> favoriteProducts = {};
 
   Future<void> getProducts({String? searchText, String? category}) async {
+    searchedProducts = [];
+    categoryProducts = [];
+    products = [];
     emit(GetDataLoading());
     try {
       Response response = await _apiServices.getData(
@@ -45,6 +48,7 @@ class HomeCubit extends Cubit<HomeStates> {
         "for_user": userId,
         "is_favorite": true,
       });
+      await getProducts();
       favoriteProducts.addAll({productId: true});
       emit(AddProductToFavoriteSuccess());
     } catch (e) {
@@ -59,7 +63,11 @@ class HomeCubit extends Cubit<HomeStates> {
       await _apiServices.deleteData(
         'favorite_products?for_product=eq.$productId&for_user=eq.$userId',
       );
+      await getProducts();
       favoriteProducts.removeWhere((key, value) => key == productId);
+      favoriteProductsList.removeWhere(
+        (product) => product.productId == productId,
+      );
       emit(RemoveProductToFavoriteSuccess());
     } catch (e) {
       log(e.toString());

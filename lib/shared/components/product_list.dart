@@ -13,11 +13,26 @@ class ProductList extends StatelessWidget {
     this.physics,
     this.searchText,
     this.category,
+    this.isFavoriteScreen = false,
   });
   final bool? shrinkWrap;
   final ScrollPhysics? physics;
   final String? searchText;
   final String? category;
+  final bool? isFavoriteScreen;
+
+  List<ProductModel> _getProducts(context) {
+    if (searchText != null) {
+      return HomeCubit.get(context).searchedProducts;
+    } else if (category != null) {
+      return HomeCubit.get(context).categoryProducts;
+    } else if (isFavoriteScreen == true) {
+      return HomeCubit.get(context).favoriteProductsList;
+    } else {
+      return HomeCubit.get(context).products;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -26,11 +41,7 @@ class ProductList extends StatelessWidget {
       child: BlocConsumer<HomeCubit, HomeStates>(
         listener: (BuildContext context, state) {},
         builder: (BuildContext context, state) {
-          List<ProductModel> products = searchText != null
-              ? HomeCubit.get(context).searchedProducts
-              : category != null
-              ? HomeCubit.get(context).categoryProducts
-              : HomeCubit.get(context).products;
+          List<ProductModel> products = _getProducts(context);
           return state is GetDataLoading
               ? Center(child: CircularProgressIndicator())
               : products.isEmpty
