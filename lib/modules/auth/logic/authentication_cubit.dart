@@ -1,13 +1,8 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market_app/models/user_model.dart';
-import 'package:pay_with_paymob/pay_with_paymob.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import '../../../shared/network/remote/paymob.dart';
-import '../../../shared/styles/style.dart';
 
 part 'authentication_state.dart';
 
@@ -165,40 +160,5 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       log(e.toString());
       emit(GetUserDataError(message: e.toString()));
     }
-  }
-
-  void createPayment() {
-    PaymentData.initialize(
-      apiKey:
-          paymobApi, // Required: Found under Dashboard -> Settings -> Account Info -> API Key
-      iframeId: paymobIFrame, // Required: Found under Developers -> iframes
-      integrationCardId:
-          paymobIntegrationCardId, // Required: Found under Developers -> Payment Integrations -> Online Card ID
-      integrationMobileWalletId:
-          paymobIntegrationMobileWalletId, // Required: Found under Developers -> Payment Integrations -> Mobile Wallet ID
-      // Optional User Data
-      /* userData: UserData(
-        email: userDataModel!.email, // Optional: Defaults to 'NA'
-        name: userDataModel!.name, // Optional: Defaults to 'NA'
-      ),*/
-
-      // Optional Style Customizations
-      style: Style(
-        primaryColor: AppColors.kPrimaryColor, // Default: Colors.blue
-        scaffoldColor: AppColors.kWhiteColor, // Default: Colors.white
-        appBarBackgroundColor: AppColors.kPrimaryColor, // Default: Colors.blue
-        textStyle: TextStyle(), // Default: TextStyle()
-        buttonStyle: ElevatedButton.styleFrom(
-          foregroundColor: AppColors.kWhiteColor,
-          backgroundColor: AppColors.kPrimaryColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        ), // Default: ElevatedButton.styleFrom()
-        circleProgressColor: AppColors.kPrimaryColor, // Default: Colors.blue
-        unselectedColor: AppColors.kGreyColor, // Default: Colors.grey
-      ),
-    );
   }
 }

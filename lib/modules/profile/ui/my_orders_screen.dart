@@ -12,9 +12,12 @@ class MyOrdersScreen extends StatelessWidget {
       appBar: buildCustomAppBar(context, label: 'My Orders'),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ProductList(shrinkWrap: false, physics: BouncingScrollPhysics()),
+        child: ProductList(
+          shrinkWrap: false,
+          physics: BouncingScrollPhysics(),
+          isMyOrdersScreen: true,
+        ),
       ),
-
     );
   }
 }

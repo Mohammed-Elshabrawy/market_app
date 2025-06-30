@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market_app/shared/components/product_card.dart';
+import 'package:market_app/shared/functions/showMsg.dart';
 
 import '../../models/product_model.dart';
 import '../cubit/home_cubit.dart';
@@ -14,12 +15,14 @@ class ProductList extends StatelessWidget {
     this.searchText,
     this.category,
     this.isFavoriteScreen = false,
+    this.isMyOrdersScreen = false,
   });
   final bool? shrinkWrap;
   final ScrollPhysics? physics;
   final String? searchText;
   final String? category;
   final bool? isFavoriteScreen;
+  final bool? isMyOrdersScreen;
 
   List<ProductModel> _getProducts(context) {
     if (searchText != null) {
@@ -28,6 +31,8 @@ class ProductList extends StatelessWidget {
       return HomeCubit.get(context).categoryProducts;
     } else if (isFavoriteScreen == true) {
       return HomeCubit.get(context).favoriteProductsList;
+    } else if (isMyOrdersScreen == true) {
+      return HomeCubit.get(context).userOrders;
     } else {
       return HomeCubit.get(context).products;
     }
@@ -39,7 +44,11 @@ class ProductList extends StatelessWidget {
       create: (BuildContext context) =>
           HomeCubit()..getProducts(searchText: searchText, category: category),
       child: BlocConsumer<HomeCubit, HomeStates>(
-        listener: (BuildContext context, state) {},
+        listener: (BuildContext context, state) {
+          if (state is BuyProductSuccess) {
+            showMsg(context, text: "product purchased, Thanks");
+          }
+        },
         builder: (BuildContext context, state) {
           List<ProductModel> products = _getProducts(context);
           return state is GetDataLoading
@@ -69,7 +78,14 @@ class ProductList extends StatelessWidget {
                                 products[index].productId!,
                               );
                       },
-                      onPaymentSuccess: () {},
+                      onPaymentSuccess: () async {
+                        await HomeCubit.get(
+                          context,
+                        ).addProductToPurchased(products[index].productId!);
+                      },
+                      isBought: HomeCubit.get(
+                        context,
+                      ).checkBoughtProducts(products[index].productId!),
                     ),
                   ),
                 );

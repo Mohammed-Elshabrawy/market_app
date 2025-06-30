@@ -11,7 +11,7 @@ import '../../../modules/store/ui/store_screen.dart';
 import '../logic/nav_bar_cubit.dart';
 
 class MainHomeScreen extends StatefulWidget {
-  const MainHomeScreen({super.key, this.userDataModel});
+  const MainHomeScreen({super.key, required this.userDataModel});
   final UserDataModel? userDataModel;
 
   @override
@@ -22,7 +22,12 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   late final List<Widget> screens;
   @override
   void initState() {
-    screens = [HomeScreen(), StoreScreen(), FavScreen(), ProfileScreen()];
+    screens = [
+      HomeScreen(userDataModel: widget.userDataModel),
+      StoreScreen(),
+      FavScreen(),
+      ProfileScreen(),
+    ];
     super.initState();
   }
 

@@ -17,10 +17,12 @@ class ProductCard extends StatelessWidget {
     this.onTap,
     required this.isFavorite,
     required this.onPaymentSuccess,
+    required this.isBought,
   });
   final ProductModel product;
   final Function()? onTap;
   final VoidCallback onPaymentSuccess;
+  final bool isBought;
   final bool isFavorite;
   @override
   Widget build(BuildContext context) {
@@ -124,7 +126,7 @@ class ProductCard extends StatelessWidget {
                           ],
                         ),
                         CustomBtn(
-                          text: 'Buy Now',
+                          text: isBought ? 'Buy Again' : 'Buy Now',
                           onPressed: () {
                             Navigator.push(
                               context,
