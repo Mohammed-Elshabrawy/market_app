@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market_app/shared/functions/navigate_to_without_back.dart';
 
 import '../../../layout/navbar/ui/main_home_screen.dart';
+import '../../../models/user_model.dart';
 import '../../../shared/components/custom_btn.dart';
 import '../../../shared/components/custom_text_filed.dart';
 import '../../../shared/functions/navigateTo.dart';
@@ -37,8 +38,14 @@ class _SignupScreenState extends State<SignupScreen> {
     AuthenticationCubit cubit = AuthenticationCubit.get(context);
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (BuildContext context, state) {
+        UserDataModel userDataModel = context
+            .read<AuthenticationCubit>()
+            .userDataModel!;
         if (state is SignUpSuccess) {
-          navigateToWithoutBack(context, screen: MainHomeScreen());
+          navigateToWithoutBack(
+            context,
+            screen: MainHomeScreen(userDataModel: userDataModel),
+          );
         } else if (state is SignUpError) {
           showMsg(context, text: state.message);
         }

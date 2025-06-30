@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../layout/navbar/ui/main_home_screen.dart';
+import '../../../models/user_model.dart';
 import '../../../shared/components/custom_btn.dart';
 import '../../../shared/components/custom_indicator.dart';
 import '../../../shared/components/custom_text_filed.dart';
@@ -36,8 +37,14 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (BuildContext context, state) {
+        UserDataModel userDataModel = context
+            .read<AuthenticationCubit>()
+            .userDataModel!;
         if (state is LoginSuccess) {
-          navigateToWithoutBack(context, screen: MainHomeScreen());
+          navigateToWithoutBack(
+            context,
+            screen: MainHomeScreen(userDataModel: userDataModel),
+          );
         } else if (state is LoginError) {
           showMsg(context, text: state.message);
         }
@@ -240,7 +247,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: CustomBtn(
                                       text: "Login with Google",
                                       onPressed: () {
-                                        navigateTo(context, MainHomeScreen());
+                                        // navigateTo(context, MainHomeScreen(userDataModel: cubit.userDataModel!,));
                                       },
                                     ),
                                   ),

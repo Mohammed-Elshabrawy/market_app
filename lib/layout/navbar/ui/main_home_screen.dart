@@ -3,20 +3,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:market_app/shared/styles/style.dart';
 
+import '../../../models/user_model.dart';
 import '../../../modules/favorite/ui/fav_screen.dart';
 import '../../../modules/home/ui/home_screen.dart';
 import '../../../modules/profile/ui/profile_screen.dart';
 import '../../../modules/store/ui/store_screen.dart';
 import '../logic/nav_bar_cubit.dart';
 
-class MainHomeScreen extends StatelessWidget {
-  MainHomeScreen({super.key});
-  final List<Widget> screens = [
-    HomeScreen(),
-    StoreScreen(),
-    FavScreen(),
-    ProfileScreen(),
-  ];
+class MainHomeScreen extends StatefulWidget {
+  const MainHomeScreen({super.key, this.userDataModel});
+  final UserDataModel? userDataModel;
+
+  @override
+  State<MainHomeScreen> createState() => _MainHomeScreenState();
+}
+
+class _MainHomeScreenState extends State<MainHomeScreen> {
+  late final List<Widget> screens;
+  @override
+  void initState() {
+    screens = [HomeScreen(), StoreScreen(), FavScreen(), ProfileScreen()];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -69,6 +69,7 @@ class ProductList extends StatelessWidget {
                                 products[index].productId!,
                               );
                       },
+                      onPaymentSuccess: () {},
                     ),
                   ),
                 );
