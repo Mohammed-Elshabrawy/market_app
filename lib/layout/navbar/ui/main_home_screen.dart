@@ -2,10 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:market_app/shared/styles/style.dart';
+
+import '../../../modules/favorite/ui/fav_screen.dart';
+import '../../../modules/home/ui/home_screen.dart';
+import '../../../modules/profile/ui/profile_screen.dart';
+import '../../../modules/store/ui/store_screen.dart';
 import '../logic/nav_bar_cubit.dart';
 
 class MainHomeScreen extends StatelessWidget {
-  const MainHomeScreen({super.key});
+  MainHomeScreen({super.key});
+  final List<Widget> screens = [
+    HomeScreen(),
+    StoreScreen(),
+    FavScreen(),
+    ProfileScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +27,7 @@ class MainHomeScreen extends StatelessWidget {
         builder: (BuildContext context, NavBarState state) {
           NavBarCubit cubit = NavBarCubit.get(context);
           return Scaffold(
-            body: cubit.screens[cubit.currentIndex],
+            body: screens[cubit.currentIndex],
             bottomNavigationBar: Container(
               decoration: BoxDecoration(color: AppColors.kWhiteColor),
               child: Padding(

@@ -17,8 +17,6 @@ class HomeCubit extends Cubit<HomeStates> {
   List<ProductModel> searchedProducts = [];
   List<ProductModel> categoryProducts = [];
 
-  Map<String, bool> favoriteProducts = {};
-
   Future<void> getProducts({String? searchText, String? category}) async {
     searchedProducts = [];
     categoryProducts = [];
@@ -37,6 +35,7 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(GetDataSuccess());
     } catch (e) {
       emit(GetDataError());
+      log(e.toString());
     }
   }
 
@@ -82,7 +81,6 @@ class HomeCubit extends Cubit<HomeStates> {
           searchText.toLowerCase(),
         )) {
           searchedProducts.add(product);
-          print(product.productName);
         }
       }
     }
@@ -99,6 +97,8 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
+  Map<String, bool> favoriteProducts = {};
+
   List<ProductModel> favoriteProductsList = [];
   void getFavoriteProducts() {
     for (ProductModel product in products) {
@@ -113,7 +113,6 @@ class HomeCubit extends Cubit<HomeStates> {
         }
       }
     }
-    log(favoriteProductsList[0].productName.toString());
   }
 
   bool checkFavoriteProducts(String productId) {

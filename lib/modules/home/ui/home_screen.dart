@@ -33,10 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
           paymobIntegrationMobileWalletId, // Required: Found under Developers -> Payment Integrations -> Mobile Wallet ID
       // Optional User Data
       userData: UserData(
-        email: "User Email", // Optional: Defaults to 'NA'
-        phone: "User Phone", // Optional: Defaults to 'NA'
-        name: "User First Name", // Optional: Defaults to 'NA'
-        lastName: "User Last Name", // Optional: Defaults to 'NA'
+        // email: widget.userDataModel.email, // Optional: Defaults to 'NA'
+        // name: widget.userDataModel.name, // Optional: Defaults to 'NA'
       ),
 
       // Optional Style Customizations
