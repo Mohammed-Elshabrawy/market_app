@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:market_app/modules/home/ui/search_view.dart';
 import 'package:market_app/modules/home/ui/widgets/categorise_list_view.dart';
+import 'package:pay_with_paymob/pay_with_paymob.dart';
 
 import '../../../shared/components/custom_search_filed.dart';
 import '../../../shared/components/product_list.dart';
 import '../../../shared/functions/navigateTo.dart';
+import '../../../shared/network/remote/paymob.dart';
+import '../../../shared/styles/style.dart';
 import '../../auth/logic/authentication_cubit.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,6 +20,45 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    PaymentData.initialize(
+      apiKey:
+          paymobApi, // Required: Found under Dashboard -> Settings -> Account Info -> API Key
+      iframeId: paymobIFrame, // Required: Found under Developers -> iframes
+      integrationCardId:
+          paymobIntegrationCardId, // Required: Found under Developers -> Payment Integrations -> Online Card ID
+      integrationMobileWalletId:
+          paymobIntegrationMobileWalletId, // Required: Found under Developers -> Payment Integrations -> Mobile Wallet ID
+      // Optional User Data
+      userData: UserData(
+        email: "User Email", // Optional: Defaults to 'NA'
+        phone: "User Phone", // Optional: Defaults to 'NA'
+        name: "User First Name", // Optional: Defaults to 'NA'
+        lastName: "User Last Name", // Optional: Defaults to 'NA'
+      ),
+
+      // Optional Style Customizations
+      style: Style(
+        primaryColor: AppColors.kPrimaryColor, // Default: Colors.blue
+        scaffoldColor: AppColors.kWhiteColor, // Default: Colors.white
+        appBarBackgroundColor: AppColors.kPrimaryColor, // Default: Colors.blue
+        textStyle: TextStyle(), // Default: TextStyle()
+        buttonStyle: ElevatedButton.styleFrom(
+          foregroundColor: AppColors.kWhiteColor,
+          backgroundColor: AppColors.kPrimaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        ), // Default: ElevatedButton.styleFrom()
+        circleProgressColor: AppColors.kPrimaryColor, // Default: Colors.blue
+        unselectedColor: AppColors.kGreyColor, // Default: Colors.grey
+      ),
+    );
+    super.initState();
+  }
 
   @override
   void dispose() {

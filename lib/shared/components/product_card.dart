@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:market_app/models/product_model.dart';
+import 'package:pay_with_paymob/pay_with_paymob.dart';
 
 import '../../modules/product_details/ui/product_details_screen.dart';
 import '../functions/navigateTo.dart';
@@ -118,7 +121,27 @@ class ProductCard extends StatelessWidget {
                             ),
                           ],
                         ),
-                        CustomBtn(text: 'Buy Now'),
+                        CustomBtn(
+                          text: 'Buy Now',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PaymentView(
+                                  onPaymentSuccess: () {
+                                    log('Payment successful');
+                                  },
+                                  onPaymentError: () {
+                                    log('Payment failed');
+                                  },
+                                  price: double.parse(
+                                    product.price!,
+                                  ), // Required: Total price (e.g., 100 for 100 EGP)
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ],
